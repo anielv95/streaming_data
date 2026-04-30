@@ -24,14 +24,18 @@ async def generate_signature():
 
 
 async def websocket_listener():
-    signature_b64, timestamp = await generate_signature()
+    #signature_b64, timestamp = await generate_signature()
     subscribe_message = json.dumps({
         'type': 'subscribe',
-        'channels': [{'name': channel, 'product_ids': [product_ids]}],
-        'signature': signature_b64,
-        'key': API_KEY,
-        'passphrase': PASSPHRASE,
-        'timestamp': timestamp
+        "channels": [
+        {
+            "name": "heartbeat",
+            "product_ids": [
+                "ETH-EUR"
+            ]
+        },
+        { "name": "status"}
+    ]
     })
 
     while True:
